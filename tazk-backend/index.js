@@ -1,17 +1,23 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
+import app from './express.js';
+import mongoose from 'mongoose';
 import 'dotenv/config';
 
-const app = express();
+mongoose.connect(process.env.MONGO_URI);
 
-app.use(cors());
-app.use(bodyParser.json());
+mongoose.connection.on('error', (err) => {
+  console.log(`Database connection error: ${err}`);
+});
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
+mongoose.connection.on('connected', () => {
+  console.log('Database connected');
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Database disconnected');
 });
 
 app.listen(process.env.PORT, () => {
   console.log(`Tazk-backend is running on port ${process.env.PORT}`);
 });
+
+export default app;
