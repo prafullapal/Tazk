@@ -1,4 +1,4 @@
-import { verifyAccessToken } from "../utils/jwt";
+import { verifyAccessToken } from "../utils/jwt.js";
 
 export const authorize = async (req, res, next) => {
     const authHeader = req.headers["Authorization"];

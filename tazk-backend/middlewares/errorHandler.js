@@ -1,11 +1,10 @@
 export const errorResponse = (res, message, error, statusCode) => {
-  console.error("Error Response: ", {
-    "api-request": res.req.originalUrl,
-    error: error,
-    message: message || error.message,
-    status: statusCode,
-  });
-  console.error("Error Status: ", error.status);
+  // console.error("Error Response: ", {
+  //   "api-request": res.req.originalUrl,
+  //   error: error,
+  //   message: message || error.message,
+  //   status: statusCode,
+  // });
   const sendError = process.env.NODE_ENV === "development";
   return res.status(statusCode).json({
     success: false,
