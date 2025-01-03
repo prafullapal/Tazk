@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "20"
+
+      - name: Move to backend directory
+        run: cd tazk-backend
       
       - name: Install dependencies
         run: npm install
@@ -34,6 +37,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "20"
+
+      - name: Move to frontend directory
+        run: cd tazk-frontend
 
       - name: Install dependencies
         run: npm install
