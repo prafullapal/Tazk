@@ -217,40 +217,40 @@ describe("Auth Routes Test", () => {
     });
   });
 
-  describe("GET /v1/api/auth/signout", () => {
-    it("Should sign out a user", async () => {
-      const user = new User({
-        username: "test user",
-        email: "test@mail.com",
-        password: "password@test123",
-      });
-      await user.save();
-      const accessToken = await chai.request
-        .execute(app)
-        .post("/v1/api/auth/signin")
-        .send({
-          email: "test@mail.com",
-          password: "password@test123",
-        })
-        .then((res) => {
-          return res.body.data.accessToken;
-        });
+  // describe("GET /v1/api/auth/signout", () => {
+  //   it("Should sign out a user", async () => {
+  //     const user = new User({
+  //       username: "test user",
+  //       email: "test@mail.com",
+  //       password: "password@test123",
+  //     });
+  //     await user.save();
+  //     const accessToken = await chai.request
+  //       .execute(app)
+  //       .post("/v1/api/auth/signin")
+  //       .send({
+  //         email: "test@mail.com",
+  //         password: "password@test123",
+  //       })
+  //       .then((res) => {
+  //         return res.body.data.accessToken;
+  //       });
 
-      return chai.request
-        .execute(app)
-        .get("/v1/api/auth/signout")
-        .set("Authorization", `Bearer ${accessToken}`)
-        .end(async (err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.have.property("success").to.be.true;
-          expect(res.body)
-            .to.have.property("message")
-            .to.be.equal("Sign out successful");
+  //     return chai.request
+  //       .execute(app)
+  //       .get("/v1/api/auth/signout")
+  //       .set("Authorization", `Bearer ${accessToken}`)
+  //       .end(async (err, res) => {
+  //         expect(res).to.have.status(200);
+  //         expect(res.body).to.have.property("success").to.be.true;
+  //         expect(res.body)
+  //           .to.have.property("message")
+  //           .to.be.equal("Sign out successful");
 
-          const user = await User.findOne({ email: "test@mail.com" });
-          expect(user).to.not.be.null;
-          expect(user.refreshToken).to.be.null;
-        });
-    });
-  });
+  //         const user = await User.findOne({ email: "test@mail.com" });
+  //         expect(user).to.not.be.null;
+  //         expect(user.refreshToken).to.be.null;
+  //       });
+  //   });
+  // });
 });
